@@ -5,7 +5,8 @@ import java.sql.Date;
 import java.util.Collection;
 import java.util.Objects;
 
-@Entity(name = "FS_Utilisateur")
+@Entity
+@Table(name = "FS_Utilisateur", schema = "public", catalog = "FoodSearch")
 public class FsUtilisateur {
     private int utiId;
     private String utiNom;

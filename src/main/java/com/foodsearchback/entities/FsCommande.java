@@ -3,7 +3,8 @@ package com.foodsearchback.entities;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "FS_Commande")
+@Entity
+@Table(name = "FS_Commande", schema = "public", catalog = "FoodSearch")
 public class FsCommande {
     private int cmdId;
     private String cmdTitrePr;

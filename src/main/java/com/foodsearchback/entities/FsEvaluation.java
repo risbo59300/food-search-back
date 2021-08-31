@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
-@Entity(name = "FS_Evaluation")
+@Entity
+@Table(name = "FS_Evaluation", schema = "public", catalog = "FoodSearch")
 public class FsEvaluation {
     private int evaId;
     private Integer evaNote;

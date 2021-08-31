@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
-@Entity(name = "FS_Role")
+@Entity
+@Table(name = "FS_Role", schema = "public", catalog = "FoodSearch")
 public class FsRole {
     private int rolId;
     private String rolType;

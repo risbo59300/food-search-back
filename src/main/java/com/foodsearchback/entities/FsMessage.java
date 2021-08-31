@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
-@Entity(name = "FS_Message")
+@Entity
+@Table(name = "FS_Message", schema = "public", catalog = "FoodSearch")
 public class FsMessage {
     private int msgId;
     private String msgMessage;

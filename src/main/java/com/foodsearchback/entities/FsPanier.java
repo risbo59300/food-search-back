@@ -3,7 +3,8 @@ package com.foodsearchback.entities;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "FS_Panier")
+@Entity
+@Table(name = "FS_Panier", schema = "public", catalog = "FoodSearch")
 public class FsPanier {
 
     private int panId;

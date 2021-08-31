@@ -3,7 +3,8 @@ package com.foodsearchback.entities;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "FS_Fidelite")
+@Entity
+@Table(name = "FS_Fidelite", schema = "public", catalog = "FoodSearch")
 public class FsFidelite {
     private int fidId;
     private int fidPtsFid;

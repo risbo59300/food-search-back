@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
-@Entity(name = "FS_Restaurant")
+@Entity
+@Table(name = "FS_Restaurant", schema = "public", catalog = "FoodSearch")
 public class FsRestaurant {
     private int restId;
     private String restNom;

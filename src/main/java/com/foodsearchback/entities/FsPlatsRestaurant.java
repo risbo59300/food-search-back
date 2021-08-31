@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
-@Entity(name = "FS_PlatsRestaurant")
+@Entity
+@Table(name = "FS_PlatsRestaurant", schema = "public", catalog = "FoodSearch")
 public class FsPlatsRestaurant {
     private int prId;
     private String prTitre;
