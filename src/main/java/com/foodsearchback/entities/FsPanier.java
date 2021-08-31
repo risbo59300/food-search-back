@@ -12,7 +12,6 @@ public class FsPanier {
     private int panPrix;
     private int panQuantite;
     private int panIdRestaurant;
-    private int panIdUti;
     private FsUtilisateur fsUtilisateurByPanIdUti;
 
     @Id
@@ -65,27 +64,17 @@ public class FsPanier {
         this.panIdRestaurant = panIdRestaurant;
     }
 
-    @Basic
-    @Column(name = "Pan_idUti")
-    public int getPanIdUti() {
-        return panIdUti;
-    }
-
-    public void setPanIdUti(int panIdUti) {
-        this.panIdUti = panIdUti;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FsPanier that = (FsPanier) o;
-        return panId == that.panId && panPrix == that.panPrix && panQuantite == that.panQuantite && panIdRestaurant == that.panIdRestaurant && panIdUti == that.panIdUti && Objects.equals(panTitre, that.panTitre);
+        return panId == that.panId && panPrix == that.panPrix && panQuantite == that.panQuantite && panIdRestaurant == that.panIdRestaurant && Objects.equals(panTitre, that.panTitre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(panId, panTitre, panPrix, panQuantite, panIdRestaurant, panIdUti);
+        return Objects.hash(panId, panTitre, panPrix, panQuantite, panIdRestaurant);
     }
 
     @ManyToOne

@@ -12,8 +12,6 @@ public class FsCommande {
     private int cmdQuantitePr;
     private String cmdStatus;
     private int cmdIdUti;
-    private int cmdIdRes;
-    private int cmdIdEva;
     private FsRestaurant fsRestaurantByCmdIdRes;
     private FsEvaluation fsEvaluationByCmdIdEva;
 
@@ -77,37 +75,17 @@ public class FsCommande {
         this.cmdIdUti = cmdIdUti;
     }
 
-    @Basic
-    @Column(name = "CMD_idRes")
-    public int getCmdIdRes() {
-        return cmdIdRes;
-    }
-
-    public void setCmdIdRes(int cmdIdRes) {
-        this.cmdIdRes = cmdIdRes;
-    }
-
-    @Basic
-    @Column(name = "CMD_idEva")
-    public int getCmdIdEva() {
-        return cmdIdEva;
-    }
-
-    public void setCmdIdEva(int cmdIdEva) {
-        this.cmdIdEva = cmdIdEva;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FsCommande that = (FsCommande) o;
-        return cmdId == that.cmdId && cmdPrixPr == that.cmdPrixPr && cmdQuantitePr == that.cmdQuantitePr && cmdIdUti == that.cmdIdUti && cmdIdRes == that.cmdIdRes && cmdIdEva == that.cmdIdEva && Objects.equals(cmdTitrePr, that.cmdTitrePr) && Objects.equals(cmdStatus, that.cmdStatus);
+        return cmdId == that.cmdId && cmdPrixPr == that.cmdPrixPr && cmdQuantitePr == that.cmdQuantitePr && cmdIdUti == that.cmdIdUti && Objects.equals(cmdTitrePr, that.cmdTitrePr) && Objects.equals(cmdStatus, that.cmdStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cmdId, cmdTitrePr, cmdPrixPr, cmdQuantitePr, cmdStatus, cmdIdUti, cmdIdRes, cmdIdEva);
+        return Objects.hash(cmdId, cmdTitrePr, cmdPrixPr, cmdQuantitePr, cmdStatus, cmdIdUti);
     }
 
     @ManyToOne

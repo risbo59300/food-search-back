@@ -10,7 +10,6 @@ public class FsMessage {
     private int msgId;
     private String msgMessage;
     private Date msgDate;
-    private int msgIdUti;
     private FsUtilisateur fsUtilisateurByMsgIdUti;
 
     @Id
@@ -43,27 +42,17 @@ public class FsMessage {
         this.msgDate = msgDate;
     }
 
-    @Basic
-    @Column(name = "Msg_idUti")
-    public int getMsgIdUti() {
-        return msgIdUti;
-    }
-
-    public void setMsgIdUti(int msgIdUti) {
-        this.msgIdUti = msgIdUti;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FsMessage that = (FsMessage) o;
-        return msgId == that.msgId && msgIdUti == that.msgIdUti && Objects.equals(msgMessage, that.msgMessage) && Objects.equals(msgDate, that.msgDate);
+        return msgId == that.msgId && Objects.equals(msgMessage, that.msgMessage) && Objects.equals(msgDate, that.msgDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(msgId, msgMessage, msgDate, msgIdUti);
+        return Objects.hash(msgId, msgMessage, msgDate);
     }
 
     @ManyToOne

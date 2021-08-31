@@ -8,7 +8,6 @@ import java.util.Objects;
 public class FsFidelite {
     private int fidId;
     private int fidPtsFid;
-    private int fidIdUtil;
     private FsUtilisateur fsUtilisateurByFidIdUtil;
 
     @Id
@@ -31,31 +30,21 @@ public class FsFidelite {
         this.fidPtsFid = fidPtsFid;
     }
 
-    @Basic
-    @Column(name = "Fid_idUtil")
-    public int getFidIdUtil() {
-        return fidIdUtil;
-    }
-
-    public void setFidIdUtil(int fidIdUtil) {
-        this.fidIdUtil = fidIdUtil;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FsFidelite that = (FsFidelite) o;
-        return fidId == that.fidId && fidPtsFid == that.fidPtsFid && fidIdUtil == that.fidIdUtil;
+        return fidId == that.fidId && fidPtsFid == that.fidPtsFid;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fidId, fidPtsFid, fidIdUtil);
+        return Objects.hash(fidId, fidPtsFid);
     }
 
     @ManyToOne
-    @JoinColumn(name = "Fid_idUtil", referencedColumnName = "Uti_id", nullable = false)
+    @JoinColumn(name = "Fid_idUti", referencedColumnName = "Uti_id", nullable = false)
     public FsUtilisateur getFsUtilisateurByFidIdUtil() {
         return fsUtilisateurByFidIdUtil;
     }

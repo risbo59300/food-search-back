@@ -13,7 +13,6 @@ public class FsAdresse {
     private int adrCp;
     private String adrVille;
     private String adrPays;
-    private Integer adrIdUti;
     private FsUtilisateur fsUtilisateurByAdrIdUti;
     private FsRestaurant fsRestaurantByAdrId;
 
@@ -87,27 +86,17 @@ public class FsAdresse {
         this.adrPays = adrPays;
     }
 
-    @Basic
-    @Column(name = "Adr_idUti")
-    public Integer getAdrIdUti() {
-        return adrIdUti;
-    }
-
-    public void setAdrIdUti(Integer adrIdUti) {
-        this.adrIdUti = adrIdUti;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FsAdresse that = (FsAdresse) o;
-        return adrId == that.adrId && adrNumero == that.adrNumero && adrCp == that.adrCp && Objects.equals(adrRue, that.adrRue) && Objects.equals(adrCplAdr, that.adrCplAdr) && Objects.equals(adrVille, that.adrVille) && Objects.equals(adrPays, that.adrPays) && Objects.equals(adrIdUti, that.adrIdUti);
+        return adrId == that.adrId && adrNumero == that.adrNumero && adrCp == that.adrCp && Objects.equals(adrRue, that.adrRue) && Objects.equals(adrCplAdr, that.adrCplAdr) && Objects.equals(adrVille, that.adrVille) && Objects.equals(adrPays, that.adrPays);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(adrId, adrNumero, adrRue, adrCplAdr, adrCp, adrVille, adrPays, adrIdUti);
+        return Objects.hash(adrId, adrNumero, adrRue, adrCplAdr, adrCp, adrVille, adrPays);
     }
 
     @ManyToOne

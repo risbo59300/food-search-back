@@ -16,7 +16,6 @@ public class FsUtilisateur {
     private String utiMail;
     private String utiMdp;
     private Date utiDdn;
-    private int utiIdRol;
     private String utiPhoto;
     private Collection<FsAdresse> fsAdressesByUtiId;
     private Collection<FsFavoris> fsFavorisesByUtiId;
@@ -108,16 +107,6 @@ public class FsUtilisateur {
     }
 
     @Basic
-    @Column(name = "Uti_idRol")
-    public int getUtiIdRol() {
-        return utiIdRol;
-    }
-
-    public void setUtiIdRol(int utiIdRol) {
-        this.utiIdRol = utiIdRol;
-    }
-
-    @Basic
     @Column(name = "Uti_photo")
     public String getUtiPhoto() {
         return utiPhoto;
@@ -132,12 +121,12 @@ public class FsUtilisateur {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FsUtilisateur that = (FsUtilisateur) o;
-        return utiId == that.utiId && utiIdRol == that.utiIdRol && Objects.equals(utiNom, that.utiNom) && Objects.equals(utiPrenom, that.utiPrenom) && Objects.equals(utiTel, that.utiTel) && Objects.equals(utiPseudo, that.utiPseudo) && Objects.equals(utiMail, that.utiMail) && Objects.equals(utiMdp, that.utiMdp) && Objects.equals(utiDdn, that.utiDdn) && Objects.equals(utiPhoto, that.utiPhoto);
+        return utiId == that.utiId && Objects.equals(utiNom, that.utiNom) && Objects.equals(utiPrenom, that.utiPrenom) && Objects.equals(utiTel, that.utiTel) && Objects.equals(utiPseudo, that.utiPseudo) && Objects.equals(utiMail, that.utiMail) && Objects.equals(utiMdp, that.utiMdp) && Objects.equals(utiDdn, that.utiDdn) && Objects.equals(utiPhoto, that.utiPhoto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(utiId, utiNom, utiPrenom, utiTel, utiPseudo, utiMail, utiMdp, utiDdn, utiIdRol, utiPhoto);
+        return Objects.hash(utiId, utiNom, utiPrenom, utiTel, utiPseudo, utiMail, utiMdp, utiDdn, utiPhoto);
     }
 
     @OneToMany(mappedBy = "fsUtilisateurByAdrIdUti")
@@ -195,7 +184,7 @@ public class FsUtilisateur {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Uti_idRol", referencedColumnName = "Rol_id", nullable = false)
+    @JoinColumn(name = "Uti_idRole", referencedColumnName = "Rol_id", nullable = false)
     public FsRole getFsRoleByUtiIdRol() {
         return fsRoleByUtiIdRol;
     }

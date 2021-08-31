@@ -10,9 +10,6 @@ public class FsRestaurant {
     private int restId;
     private String restNom;
     private String restTel;
-    private int restIdUti;
-    private int restIdSpe;
-    private int restIdAdr;
     private Collection<FsCommande> fsCommandesByRestId;
     private Collection<FsPlatsRestaurant> fsPlatsRestaurantsByRestId;
     private FsAdresse fsAdresseByRestId;
@@ -49,48 +46,7 @@ public class FsRestaurant {
         this.restTel = restTel;
     }
 
-    @Basic
-    @Column(name = "Rest_idUti")
-    public int getRestIdUti() {
-        return restIdUti;
-    }
 
-    public void setRestIdUti(int restIdUti) {
-        this.restIdUti = restIdUti;
-    }
-
-    @Basic
-    @Column(name = "Rest_idSpe")
-    public int getRestIdSpe() {
-        return restIdSpe;
-    }
-
-    public void setRestIdSpe(int restIdSpe) {
-        this.restIdSpe = restIdSpe;
-    }
-
-    @Basic
-    @Column(name = "Rest_idAdr")
-    public int getRestIdAdr() {
-        return restIdAdr;
-    }
-
-    public void setRestIdAdr(int restIdAdr) {
-        this.restIdAdr = restIdAdr;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FsRestaurant that = (FsRestaurant) o;
-        return restId == that.restId && restIdUti == that.restIdUti && restIdSpe == that.restIdSpe && restIdAdr == that.restIdAdr && Objects.equals(restNom, that.restNom) && Objects.equals(restTel, that.restTel);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(restId, restNom, restTel, restIdUti, restIdSpe, restIdAdr);
-    }
 
     @OneToMany(mappedBy = "fsRestaurantByCmdIdRes")
     public Collection<FsCommande> getFsCommandesByRestId() {
@@ -121,7 +77,7 @@ public class FsRestaurant {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Rest_idUti", referencedColumnName = "Uti_id", nullable = false)
+    @JoinColumn(name = "Rest_id_Uti", referencedColumnName = "Uti_id", nullable = false)
     public FsUtilisateur getFsUtilisateurByRestIdUti() {
         return fsUtilisateurByRestIdUti;
     }
@@ -131,7 +87,7 @@ public class FsRestaurant {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Rest_idSpe", referencedColumnName = "Spe_id", nullable = false)
+    @JoinColumn(name = "Rest_id_Spe", referencedColumnName = "Spe_id", nullable = false)
     public FsSpecialite getFsSpecialiteByRestIdSpe() {
         return fsSpecialiteByRestIdSpe;
     }

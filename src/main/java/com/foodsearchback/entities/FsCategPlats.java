@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "FS_CategPlats", schema = "public", catalog = "FoodSearch")
+@Table(name = "FS_Categ_Plats", schema = "public", catalog = "FoodSearch")
 public class FsCategPlats {
     private int cpId;
     private String cpType;

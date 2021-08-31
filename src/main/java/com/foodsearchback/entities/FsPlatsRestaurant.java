@@ -5,15 +5,13 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "FS_PlatsRestaurant", schema = "public", catalog = "FoodSearch")
+@Table(name = "FS_Plats_Restaurant", schema = "public", catalog = "FoodSearch")
 public class FsPlatsRestaurant {
     private int prId;
     private String prTitre;
     private int prPrix;
     private String prDescription;
     private String prPhoto;
-    private int prIdCat;
-    private int prIdRes;
     private Collection<FsPhoto> fsPhotosByPrId;
     private Collection<FsPlatMenu> fsPlatMenusByPrId;
     private FsCategPlats fsCategPlatsByPrIdCat;
@@ -69,37 +67,17 @@ public class FsPlatsRestaurant {
         this.prPhoto = prPhoto;
     }
 
-    @Basic
-    @Column(name = "PR_idCat")
-    public int getPrIdCat() {
-        return prIdCat;
-    }
-
-    public void setPrIdCat(int prIdCat) {
-        this.prIdCat = prIdCat;
-    }
-
-    @Basic
-    @Column(name = "PR_idRes")
-    public int getPrIdRes() {
-        return prIdRes;
-    }
-
-    public void setPrIdRes(int prIdRes) {
-        this.prIdRes = prIdRes;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FsPlatsRestaurant that = (FsPlatsRestaurant) o;
-        return prId == that.prId && prPrix == that.prPrix && prIdCat == that.prIdCat && prIdRes == that.prIdRes && Objects.equals(prTitre, that.prTitre) && Objects.equals(prDescription, that.prDescription) && Objects.equals(prPhoto, that.prPhoto);
+        return prId == that.prId && prPrix == that.prPrix && Objects.equals(prTitre, that.prTitre) && Objects.equals(prDescription, that.prDescription) && Objects.equals(prPhoto, that.prPhoto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(prId, prTitre, prPrix, prDescription, prPhoto, prIdCat, prIdRes);
+        return Objects.hash(prId, prTitre, prPrix, prDescription, prPhoto);
     }
 
     @OneToMany(mappedBy = "fsPlatsRestaurantByPhoIdPlatRes")

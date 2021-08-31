@@ -4,11 +4,9 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "FS_PlatMenu", schema = "public", catalog = "FoodSearch")
+@Table(name = "FS_Plat_Menu", schema = "public", catalog = "FoodSearch")
 public class FsPlatMenu {
     private int pmId;
-    private int pmIdPlat;
-    private int pmIdMenu;
     private FsPlatsRestaurant fsPlatsRestaurantByPmIdPlat;
     private FsMenu fsMenuByPmIdMenu;
 
@@ -22,37 +20,17 @@ public class FsPlatMenu {
         this.pmId = pmId;
     }
 
-    @Basic
-    @Column(name = "PM_idPlat")
-    public int getPmIdPlat() {
-        return pmIdPlat;
-    }
-
-    public void setPmIdPlat(int pmIdPlat) {
-        this.pmIdPlat = pmIdPlat;
-    }
-
-    @Basic
-    @Column(name = "PM_idMenu")
-    public int getPmIdMenu() {
-        return pmIdMenu;
-    }
-
-    public void setPmIdMenu(int pmIdMenu) {
-        this.pmIdMenu = pmIdMenu;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FsPlatMenu that = (FsPlatMenu) o;
-        return pmId == that.pmId && pmIdPlat == that.pmIdPlat && pmIdMenu == that.pmIdMenu;
+        return pmId == that.pmId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pmId, pmIdPlat, pmIdMenu);
+        return Objects.hash(pmId);
     }
 
     @ManyToOne

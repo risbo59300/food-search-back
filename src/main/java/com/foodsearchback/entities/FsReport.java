@@ -8,7 +8,6 @@ import java.util.Objects;
 public class FsReport {
     private int repId;
     private int repNombre;
-    private int repIdUti;
     private FsUtilisateur fsUtilisateurByRepIdUti;
 
     @Id
@@ -31,31 +30,21 @@ public class FsReport {
         this.repNombre = repNombre;
     }
 
-    @Basic
-    @Column(name = "Rep_idUti")
-    public int getRepIdUti() {
-        return repIdUti;
-    }
-
-    public void setRepIdUti(int repIdUti) {
-        this.repIdUti = repIdUti;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FsReport that = (FsReport) o;
-        return repId == that.repId && repNombre == that.repNombre && repIdUti == that.repIdUti;
+        return repId == that.repId && repNombre == that.repNombre;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(repId, repNombre, repIdUti);
+        return Objects.hash(repId, repNombre);
     }
 
     @ManyToOne
-    @JoinColumn(name = "Rep_idUti", referencedColumnName = "Uti_id", nullable = false)
+    @JoinColumn(name = "Rep_id_Uti", referencedColumnName = "Uti_id", nullable = false)
     public FsUtilisateur getFsUtilisateurByRepIdUti() {
         return fsUtilisateurByRepIdUti;
     }
