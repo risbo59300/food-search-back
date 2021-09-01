@@ -14,7 +14,8 @@ public class FsAdresse {
     private int adrCp;
     private String adrVille;
     private String adrPays;
-    private FsUtilisateur fsUtilisateurByAdrIdUti;
+    //private FsUtilisateur fsUtilisateurByAdrId;
+    private Collection<FsUtilisateur> fsUtilisateurByAdrId;
     private FsRestaurant fsRestaurantByAdrId;
 
     @Id
@@ -100,6 +101,7 @@ public class FsAdresse {
         return Objects.hash(adrId, adrNumero, adrRue, adrCplAdr, adrCp, adrVille, adrPays);
     }
 
+    /*
     @ManyToOne
     @JoinColumn(name = "Adr_id_uti", referencedColumnName = "Uti_id")
     public FsUtilisateur getFsUtilisateurByAdrIdUti() {
@@ -108,6 +110,17 @@ public class FsAdresse {
 
     public void setFsUtilisateurByAdrIdUti(FsUtilisateur fsUtilisateurByAdrIdUti) {
         this.fsUtilisateurByAdrIdUti = fsUtilisateurByAdrIdUti;
+    }
+
+
+     */
+    @OneToMany(mappedBy = "fsAdresseByUtiIdAdr")
+    public Collection<FsUtilisateur> getFsUtilisateurByAdrId() {
+        return fsUtilisateurByAdrId;
+    }
+
+    public void setFsUtilisateurByAdrId(Collection<FsUtilisateur> fsUtilisateurByAdrId) {
+        this.fsUtilisateurByAdrId = fsUtilisateurByAdrId;
     }
 
     @OneToOne(mappedBy = "fsAdresseByRestId")

@@ -17,7 +17,8 @@ public class FsUtilisateur {
     private String utiMdp;
     private Date utiDdn;
     private String utiPhoto;
-    private Collection<FsAdresse> fsAdressesByUtiId;
+    private FsAdresse fsAdresseByUtiId;
+    //private Collection<FsAdresse> fsAdressesByUtiId;
     private Collection<FsFavoris> fsFavorisesByUtiId;
     private Collection<FsFidelite> fsFidelitesByUtiId;
     private Collection<FsMessage> fsMessagesByUtiId;
@@ -129,6 +130,7 @@ public class FsUtilisateur {
         return Objects.hash(utiId, utiNom, utiPrenom, utiTel, utiPseudo, utiMail, utiMdp, utiDdn, utiPhoto);
     }
 
+    /*
     @OneToMany(mappedBy = "fsUtilisateurByAdrIdUti")
     public Collection<FsAdresse> getFsAdressesByUtiId() {
         return fsAdressesByUtiId;
@@ -136,6 +138,17 @@ public class FsUtilisateur {
 
     public void setFsAdressesByUtiId(Collection<FsAdresse> fsAdressesByUtiId) {
         this.fsAdressesByUtiId = fsAdressesByUtiId;
+    }
+*/
+
+    @ManyToOne
+    @JoinColumn(name = "Uti_id_adr", referencedColumnName = "Adr_id")
+    public FsAdresse getFsAdresseByUtiIdAdr() {
+        return fsAdresseByUtiId;
+    }
+
+    public void setFsAdresseByUtiIdAdr(FsAdresse fsAdresseByUtiId) {
+        this.fsAdresseByUtiId = fsAdresseByUtiId;
     }
 
     @OneToMany(mappedBy = "fsUtilisateurByFavIdUtil")
