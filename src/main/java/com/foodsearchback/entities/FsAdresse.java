@@ -1,6 +1,7 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -100,7 +101,7 @@ public class FsAdresse {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Adr_idUti", referencedColumnName = "Uti_id")
+    @JoinColumn(name = "Adr_id_uti", referencedColumnName = "Uti_id")
     public FsUtilisateur getFsUtilisateurByAdrIdUti() {
         return fsUtilisateurByAdrIdUti;
     }

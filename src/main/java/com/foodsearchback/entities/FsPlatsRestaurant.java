@@ -99,7 +99,7 @@ public class FsPlatsRestaurant {
     }
 
     @ManyToOne
-    @JoinColumn(name = "PR_idCat", referencedColumnName = "CP_id", nullable = false)
+    @JoinColumn(name = "pr_id_cat", referencedColumnName = "CP_id", nullable = false)
     public FsCategPlats getFsCategPlatsByPrIdCat() {
         return fsCategPlatsByPrIdCat;
     }
@@ -109,7 +109,7 @@ public class FsPlatsRestaurant {
     }
 
     @ManyToOne
-    @JoinColumn(name = "PR_idRes", referencedColumnName = "Rest_id", nullable = false)
+    @JoinColumn(name = "pr_id_res", referencedColumnName = "Rest_id", nullable = false)
     public FsRestaurant getFsRestaurantByPrIdRes() {
         return fsRestaurantByPrIdRes;
     }

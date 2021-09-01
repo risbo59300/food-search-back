@@ -78,7 +78,7 @@ public class FsPanier {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Pan_idUti", referencedColumnName = "Uti_id", nullable = false)
+    @JoinColumn(name = "pan_id_uti", referencedColumnName = "Uti_id", nullable = false)
     public FsUtilisateur getFsUtilisateurByPanIdUti() {
         return fsUtilisateurByPanIdUti;
     }

@@ -21,7 +21,7 @@ public class FsFidelite {
     }
 
     @Basic
-    @Column(name = "Fid_ptsFid")
+    @Column(name = "Fid_pts_fid")
     public int getFidPtsFid() {
         return fidPtsFid;
     }
@@ -44,7 +44,7 @@ public class FsFidelite {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Fid_idUti", referencedColumnName = "Uti_id", nullable = false)
+    @JoinColumn(name = "fid_id_uti", referencedColumnName = "Uti_id", nullable = false)
     public FsUtilisateur getFsUtilisateurByFidIdUtil() {
         return fsUtilisateurByFidIdUtil;
     }

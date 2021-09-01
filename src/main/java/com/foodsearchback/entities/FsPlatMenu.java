@@ -34,7 +34,7 @@ public class FsPlatMenu {
     }
 
     @ManyToOne
-    @JoinColumn(name = "PM_idPlat", referencedColumnName = "PR_id", nullable = false)
+    @JoinColumn(name = "pm_id_plat", referencedColumnName = "PR_id", nullable = false)
     public FsPlatsRestaurant getFsPlatsRestaurantByPmIdPlat() {
         return fsPlatsRestaurantByPmIdPlat;
     }
@@ -44,7 +44,7 @@ public class FsPlatMenu {
     }
 
     @ManyToOne
-    @JoinColumn(name = "PM_idMenu", referencedColumnName = "Men_id", nullable = false)
+    @JoinColumn(name = "pm_id_menu", referencedColumnName = "Men_id", nullable = false)
     public FsMenu getFsMenuByPmIdMenu() {
         return fsMenuByPmIdMenu;
     }

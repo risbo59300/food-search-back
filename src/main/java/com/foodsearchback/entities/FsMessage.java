@@ -56,7 +56,7 @@ public class FsMessage {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Msg_idUti", referencedColumnName = "Uti_id", nullable = false)
+    @JoinColumn(name = "msg_id_uti", referencedColumnName = "Uti_id", nullable = false)
     public FsUtilisateur getFsUtilisateurByMsgIdUti() {
         return fsUtilisateurByMsgIdUti;
     }

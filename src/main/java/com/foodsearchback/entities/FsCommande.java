@@ -66,7 +66,7 @@ public class FsCommande {
     }
 
     @Basic
-    @Column(name = "CMD_idUti")
+    @Column(name = "cmd_id_uti")
     public int getCmdIdUti() {
         return cmdIdUti;
     }
@@ -89,7 +89,7 @@ public class FsCommande {
     }
 
     @ManyToOne
-    @JoinColumn(name = "CMD_idRes", referencedColumnName = "Rest_id", nullable = false)
+    @JoinColumn(name = "cmd_id_res", referencedColumnName = "Rest_id", nullable = false)
     public FsRestaurant getFsRestaurantByCmdIdRes() {
         return fsRestaurantByCmdIdRes;
     }
@@ -99,7 +99,7 @@ public class FsCommande {
     }
 
     @ManyToOne
-    @JoinColumn(name = "CMD_idEva", referencedColumnName = "Eva_id", nullable = false)
+    @JoinColumn(name = "cmd_id_eva", referencedColumnName = "Eva_id", nullable = false)
     public FsEvaluation getFsEvaluationByCmdIdEva() {
         return fsEvaluationByCmdIdEva;
     }

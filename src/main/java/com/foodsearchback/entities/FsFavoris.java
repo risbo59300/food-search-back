@@ -21,7 +21,7 @@ public class FsFavoris {
     }
 
     @Basic
-    @Column(name = "Fav_idRes")
+    @Column(name = "Fav_id_res")
     public int getFavIdRes() {
         return favIdRes;
     }
@@ -44,7 +44,7 @@ public class FsFavoris {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Fav_idUti", referencedColumnName = "Uti_id", nullable = false)
+    @JoinColumn(name = "fav_id_uti", referencedColumnName = "Uti_id", nullable = false)
     public FsUtilisateur getFsUtilisateurByFavIdUtil() {
         return fsUtilisateurByFavIdUtil;
     }

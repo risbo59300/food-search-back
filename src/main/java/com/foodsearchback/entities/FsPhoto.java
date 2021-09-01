@@ -44,7 +44,7 @@ public class FsPhoto {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Pho_idPlatRes", referencedColumnName = "Pr_id", nullable = false)
+    @JoinColumn(name = "pho_id_plat_res", referencedColumnName = "Pr_id", nullable = false)
     public FsPlatsRestaurant getFsPlatsRestaurantByPhoIdPlatRes() {
         return fsPlatsRestaurantByPhoIdPlatRes;
     }
