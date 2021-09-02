@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/specialite")
+@RequestMapping("/panier")
 public class PanierController {
 
     @Autowired

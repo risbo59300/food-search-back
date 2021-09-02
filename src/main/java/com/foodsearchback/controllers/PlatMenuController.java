@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin( origins = "http://localhost:4200")
-@RequestMapping("/platmenu")
+@RequestMapping("/platMenu")
 public class PlatMenuController {
 
     @Autowired
