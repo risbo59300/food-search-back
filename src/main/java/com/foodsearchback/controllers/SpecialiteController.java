@@ -20,7 +20,7 @@ public class SpecialiteController {
         return specialiteService.findAll();
     }
 
-    @GetMapping("/specialite/{id}")
+    @GetMapping("/find/{id}")
     public List<FsSpecialite> findById() {
         return specialiteService.findAll();
     }

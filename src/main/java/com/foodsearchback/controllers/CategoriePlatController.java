@@ -20,7 +20,7 @@ public class CategoriePlatController {
         return categoriePlatService.findAll();
     }
 
-    @GetMapping("/specialite/{id}")
+    @GetMapping("/find/{id}")
     public List<FsCategPlats> findById() {
         return categoriePlatService.findAll();
     }

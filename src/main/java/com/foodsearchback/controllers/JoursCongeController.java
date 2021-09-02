@@ -20,7 +20,7 @@ public class JoursCongeController {
         return joursCongeService.findAll();
     }
 
-    @GetMapping("/specialite/{id}")
+    @GetMapping("/find/{id}")
     public List<FsJoursConges> findById() {
         return joursCongeService.findAll();
     }

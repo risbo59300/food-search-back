@@ -21,7 +21,7 @@ public class FavorisController {
         return favorisService.findAll();
     }
 
-    @GetMapping("/favoris/{id}")
+    @GetMapping("/find/{id}")
     public List<FsFavoris> findById() {
         return favorisService.findAll();
     }

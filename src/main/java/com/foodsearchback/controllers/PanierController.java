@@ -20,7 +20,7 @@ public class PanierController {
         return panierService.findAll();
     }
 
-    @GetMapping("/panier/{id}")
+    @GetMapping("/find/{id}")
     public List<FsPanier> findById() {
         return panierService.findAll();
     }

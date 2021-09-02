@@ -21,7 +21,7 @@ public class ReportController {
         return reportService.findAll();
     }
 
-    @GetMapping("/report/{id}")
+    @GetMapping("/find/{id}")
     public List<FsReport> findById() {
         return reportService.findAll();
     }

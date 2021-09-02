@@ -21,7 +21,7 @@ public class PlatMenuController {
         return platMenuService.findAll();
     }
 
-    @GetMapping("/platmenu/{id}")
+    @GetMapping("/find/{id}")
     public List<FsPlatMenu> findById() { return platMenuService.findAll();
     }
 

@@ -20,7 +20,7 @@ public class RestaurantController {
         return restaurantService.findAll();
     }
 
-    @GetMapping("/specialite/{id}")
+    @GetMapping("/find/{id}")
     public List<FsRestaurant> findById() {
         return restaurantService.findAll();
     }

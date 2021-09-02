@@ -20,7 +20,7 @@ public class RoleController {
         return roleService.findAll();
     }
 
-    @GetMapping("/specialite/{id}")
+    @GetMapping("/find/{id}")
     public List<FsRole> findById() {
         return roleService.findAll();
     }

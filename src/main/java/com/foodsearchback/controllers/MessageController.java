@@ -20,7 +20,7 @@ public class MessageController {
         return messageService.findAll();
     }
 
-    @GetMapping("/specialite/{id}")
+    @GetMapping("/find/{id}")
     public List<FsMessage> findById() {
         return messageService.findAll();
     }

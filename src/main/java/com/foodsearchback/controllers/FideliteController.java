@@ -20,7 +20,7 @@ public class FideliteController {
         return fideliteService.findAll();
     }
 
-    @GetMapping("/specialite/{id}")
+    @GetMapping("/find/{id}")
     public List<FsFidelite> findById() {
         return fideliteService.findAll();
     }

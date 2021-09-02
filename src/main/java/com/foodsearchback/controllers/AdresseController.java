@@ -21,7 +21,7 @@ public class AdresseController {
         return adresseService.findAll();
     }
 
-    @GetMapping("/adresse/{id}")
+    @GetMapping("/find/{id}")
     public List<FsAdresse> findById() {
         return adresseService.findAll();
     }

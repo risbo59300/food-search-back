@@ -21,7 +21,7 @@ public class EvaluationController {
         return evaluationService.findAll();
     }
 
-    @GetMapping("/specialite/{id}")
+    @GetMapping("/find/{id}")
     public List<FsEvaluation> findById() {
         return evaluationService.findAll();
     }

@@ -21,7 +21,7 @@ public class CommandeController {
         return commandeService.findAll();
     }
 
-    @GetMapping("/commande/{id}")
+    @GetMapping("/find/{id}")
     public List<FsCommande> findById() {
         return commandeService.findAll();
     }

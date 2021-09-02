@@ -20,7 +20,7 @@ public class photoController {
         return photoService.findAll();
     }
 
-    @GetMapping("/specialite/{id}")
+    @GetMapping("/find/{id}")
     public List<FsPhoto> findById() {
         return photoService.findAll();
     }

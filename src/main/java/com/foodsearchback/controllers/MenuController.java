@@ -21,7 +21,7 @@ public class MenuController {
         return menuService.findAll();
     }
 
-    @GetMapping("/menu/{id}")
+    @GetMapping("/find/{id}")
     public List<FsMenu> findById() {
         return menuService.findAll();
     }
