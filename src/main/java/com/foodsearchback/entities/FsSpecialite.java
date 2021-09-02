@@ -1,28 +1,36 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Specialite", schema = "public", catalog = "FoodSearch")
-public class FsSpecialite {
-    private int speId;
-    private String speType;
-    private Collection<FsRestaurant> fsRestaurantsBySpeId;
+public class FsSpecialite implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "Spe_id")
-    public int getSpeId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "SPECIALITE_SEQ")
+    @SequenceGenerator(name = "SPECIALITE_SEQ", sequenceName = "SPECIALITE_SEQ", allocationSize = 1)
+    @Column(name = "Spe_id", unique = true, nullable = false)
+    private Long speId;
+
+    @Column(name = "Spe_type")
+    private String speType;
+
+    @OneToMany(mappedBy = "fsSpecialiteByRestIdSpe")
+    private Collection<FsRestaurant> fsRestaurantsBySpeId;
+
+
+    public Long getSpeId() {
         return speId;
     }
 
-    public void setSpeId(int speId) {
+    public void setSpeId(Long speId) {
         this.speId = speId;
     }
 
-    @Basic
-    @Column(name = "Spe_type")
     public String getSpeType() {
         return speType;
     }
@@ -44,7 +52,6 @@ public class FsSpecialite {
         return Objects.hash(speId, speType);
     }
 
-    @OneToMany(mappedBy = "fsSpecialiteByRestIdSpe")
     public Collection<FsRestaurant> getFsRestaurantsBySpeId() {
         return fsRestaurantsBySpeId;
     }

@@ -1,44 +1,81 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Utilisateur", schema = "public", catalog = "FoodSearch")
-public class FsUtilisateur {
-    private int utiId;
-    private String utiNom;
-    private String utiPrenom;
-    private String utiTel;
-    private String utiPseudo;
-    private String utiMail;
-    private String utiMdp;
-    private Date utiDdn;
-    private String utiPhoto;
-    private FsAdresse fsAdresseByUtiId;
-    //private Collection<FsAdresse> fsAdressesByUtiId;
-    private Collection<FsFavoris> fsFavorisesByUtiId;
-    private Collection<FsFidelite> fsFidelitesByUtiId;
-    private Collection<FsMessage> fsMessagesByUtiId;
-    private Collection<FsPanier> fsPaniersByUtiId;
-    private Collection<FsRestaurant> fsRestaurantsByUtiId;
-    private FsRole fsRoleByUtiIdRol;
-    private Collection<FsReport> fsReportsByUtiId;
+public class FsUtilisateur implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "Uti_id")
-    public int getUtiId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "UTILISATEUR_SEQ")
+    @SequenceGenerator(name = "UTILISATEUR_SEQ", sequenceName = "UTILISATEUR_SEQ", allocationSize = 1)
+    @Column(name = "Uti_id", unique = true, nullable = false)
+    private Long utiId;
+
+    @Column(name = "Uti_nom")
+    private String utiNom;
+
+    @Column(name = "Uti_prenom")
+    private String utiPrenom;
+
+    @Column(name = "Uti_Tel")
+    private String utiTel;
+
+    @Column(name = "Uti_pseudo")
+    private String utiPseudo;
+
+    @Column(name = "Uti_mail")
+    private String utiMail;
+
+    @Column(name = "Uti_mdp")
+    private String utiMdp;
+
+    @Column(name = "Uti_DDN")
+    private Date utiDdn;
+
+    @Column(name = "Uti_photo")
+    private String utiPhoto;
+
+    @ManyToOne
+    @JoinColumn(name = "Uti_id_adr", referencedColumnName = "Adr_id", nullable = false)
+    private FsAdresse fsAdresseByUtiId;
+
+    @OneToMany(mappedBy = "fsUtilisateurByFavIdUtil",fetch = FetchType.LAZY)
+    private Collection<FsFavoris> fsFavorisesByUtiId;
+
+    @OneToMany(mappedBy = "fsUtilisateurByFidIdUtil",fetch = FetchType.LAZY)
+    private Collection<FsFidelite> fsFidelitesByUtiId;
+
+    @OneToMany(mappedBy = "fsUtilisateurByMsgIdUti",fetch = FetchType.LAZY)
+    private Collection<FsMessage> fsMessagesByUtiId;
+
+    @OneToMany(mappedBy = "fsUtilisateurByPanIdUti",fetch = FetchType.LAZY)
+    private Collection<FsPanier> fsPaniersByUtiId;
+
+    @OneToMany(mappedBy = "fsUtilisateurByRestIdUti",fetch = FetchType.LAZY)
+    private Collection<FsRestaurant> fsRestaurantsByUtiId;
+
+    @ManyToOne
+    @JoinColumn(name = "Uti_idRole", referencedColumnName = "Rol_id", nullable = false)
+    private FsRole fsRoleByUtiIdRol;
+
+    @OneToMany(mappedBy = "fsUtilisateurByRepIdUti",fetch = FetchType.LAZY)
+    private Collection<FsReport> fsReportsByUtiId;
+
+
+    public Long getUtiId() {
         return utiId;
     }
 
-    public void setUtiId(int utiId) {
+    public void setUtiId(Long utiId) {
         this.utiId = utiId;
     }
 
-    @Basic
-    @Column(name = "Uti_nom")
     public String getUtiNom() {
         return utiNom;
     }
@@ -47,8 +84,6 @@ public class FsUtilisateur {
         this.utiNom = utiNom;
     }
 
-    @Basic
-    @Column(name = "Uti_prenom")
     public String getUtiPrenom() {
         return utiPrenom;
     }
@@ -57,8 +92,6 @@ public class FsUtilisateur {
         this.utiPrenom = utiPrenom;
     }
 
-    @Basic
-    @Column(name = "Uti_Tel")
     public String getUtiTel() {
         return utiTel;
     }
@@ -67,8 +100,6 @@ public class FsUtilisateur {
         this.utiTel = utiTel;
     }
 
-    @Basic
-    @Column(name = "Uti_pseudo")
     public String getUtiPseudo() {
         return utiPseudo;
     }
@@ -77,8 +108,6 @@ public class FsUtilisateur {
         this.utiPseudo = utiPseudo;
     }
 
-    @Basic
-    @Column(name = "Uti_mail")
     public String getUtiMail() {
         return utiMail;
     }
@@ -87,8 +116,6 @@ public class FsUtilisateur {
         this.utiMail = utiMail;
     }
 
-    @Basic
-    @Column(name = "Uti_mdp")
     public String getUtiMdp() {
         return utiMdp;
     }
@@ -97,8 +124,6 @@ public class FsUtilisateur {
         this.utiMdp = utiMdp;
     }
 
-    @Basic
-    @Column(name = "Uti_DDN")
     public Date getUtiDdn() {
         return utiDdn;
     }
@@ -107,8 +132,6 @@ public class FsUtilisateur {
         this.utiDdn = utiDdn;
     }
 
-    @Basic
-    @Column(name = "Uti_photo")
     public String getUtiPhoto() {
         return utiPhoto;
     }
@@ -122,7 +145,7 @@ public class FsUtilisateur {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FsUtilisateur that = (FsUtilisateur) o;
-        return utiId == that.utiId && Objects.equals(utiNom, that.utiNom) && Objects.equals(utiPrenom, that.utiPrenom) && Objects.equals(utiTel, that.utiTel) && Objects.equals(utiPseudo, that.utiPseudo) && Objects.equals(utiMail, that.utiMail) && Objects.equals(utiMdp, that.utiMdp) && Objects.equals(utiDdn, that.utiDdn) && Objects.equals(utiPhoto, that.utiPhoto);
+        return utiId.equals(that.utiId) && Objects.equals(utiNom, that.utiNom) && Objects.equals(utiPrenom, that.utiPrenom) && Objects.equals(utiTel, that.utiTel) && Objects.equals(utiPseudo, that.utiPseudo) && Objects.equals(utiMail, that.utiMail) && Objects.equals(utiMdp, that.utiMdp) && Objects.equals(utiDdn, that.utiDdn) && Objects.equals(utiPhoto, that.utiPhoto);
     }
 
     @Override
@@ -130,19 +153,7 @@ public class FsUtilisateur {
         return Objects.hash(utiId, utiNom, utiPrenom, utiTel, utiPseudo, utiMail, utiMdp, utiDdn, utiPhoto);
     }
 
-    /*
-    @OneToMany(mappedBy = "fsUtilisateurByAdrIdUti")
-    public Collection<FsAdresse> getFsAdressesByUtiId() {
-        return fsAdressesByUtiId;
-    }
 
-    public void setFsAdressesByUtiId(Collection<FsAdresse> fsAdressesByUtiId) {
-        this.fsAdressesByUtiId = fsAdressesByUtiId;
-    }
-*/
-
-    @ManyToOne
-    @JoinColumn(name = "Uti_id_adr", referencedColumnName = "Adr_id")
     public FsAdresse getFsAdresseByUtiIdAdr() {
         return fsAdresseByUtiId;
     }
@@ -151,7 +162,6 @@ public class FsUtilisateur {
         this.fsAdresseByUtiId = fsAdresseByUtiId;
     }
 
-    @OneToMany(mappedBy = "fsUtilisateurByFavIdUtil")
     public Collection<FsFavoris> getFsFavorisesByUtiId() {
         return fsFavorisesByUtiId;
     }
@@ -160,7 +170,6 @@ public class FsUtilisateur {
         this.fsFavorisesByUtiId = fsFavorisesByUtiId;
     }
 
-    @OneToMany(mappedBy = "fsUtilisateurByFidIdUtil")
     public Collection<FsFidelite> getFsFidelitesByUtiId() {
         return fsFidelitesByUtiId;
     }
@@ -169,7 +178,6 @@ public class FsUtilisateur {
         this.fsFidelitesByUtiId = fsFidelitesByUtiId;
     }
 
-    @OneToMany(mappedBy = "fsUtilisateurByMsgIdUti")
     public Collection<FsMessage> getFsMessagesByUtiId() {
         return fsMessagesByUtiId;
     }
@@ -178,7 +186,6 @@ public class FsUtilisateur {
         this.fsMessagesByUtiId = fsMessagesByUtiId;
     }
 
-    @OneToMany(mappedBy = "fsUtilisateurByPanIdUti")
     public Collection<FsPanier> getFsPaniersByUtiId() {
         return fsPaniersByUtiId;
     }
@@ -187,7 +194,6 @@ public class FsUtilisateur {
         this.fsPaniersByUtiId = fsPaniersByUtiId;
     }
 
-    @OneToMany(mappedBy = "fsUtilisateurByRestIdUti")
     public Collection<FsRestaurant> getFsRestaurantsByUtiId() {
         return fsRestaurantsByUtiId;
     }
@@ -196,8 +202,7 @@ public class FsUtilisateur {
         this.fsRestaurantsByUtiId = fsRestaurantsByUtiId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "Uti_idRole", referencedColumnName = "Rol_id", nullable = false)
+
     public FsRole getFsRoleByUtiIdRol() {
         return fsRoleByUtiIdRol;
     }
@@ -206,7 +211,6 @@ public class FsUtilisateur {
         this.fsRoleByUtiIdRol = fsRoleByUtiIdRol;
     }
 
-    @OneToMany(mappedBy = "fsUtilisateurByRepIdUti")
     public Collection<FsReport> getFsReportsByUtiId() {
         return fsReportsByUtiId;
     }

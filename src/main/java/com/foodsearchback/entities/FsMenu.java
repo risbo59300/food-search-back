@@ -1,30 +1,42 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Menu", schema = "public", catalog = "FoodSearch")
-public class FsMenu {
-    private int menId;
-    private String menNom;
-    private String menType;
-    private String menPrix;
-    private Collection<FsPlatMenu> fsPlatMenusByMenId;
+public class FsMenu implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "Men_id")
-    public int getMenId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "MENU_SEQ")
+    @SequenceGenerator(name = "MENU_SEQ", sequenceName = "MENU_SEQ", allocationSize = 1)
+    @Column(name = "Men_id", unique = true, nullable = false)
+    private Long menId;
+
+    @Column(name = "Men_nom")
+    private String menNom;
+
+    @Column(name = "Men_type")
+    private String menType;
+
+    @Column(name = "Men_prix")
+    private String menPrix;
+
+    @OneToMany(mappedBy = "fsMenuByPmIdMenu")
+    private Collection<FsPlatMenu> fsPlatMenusByMenId;
+
+
+    public Long getMenId() {
         return menId;
     }
 
-    public void setMenId(int menId) {
+    public void setMenId(Long menId) {
         this.menId = menId;
     }
 
-    @Basic
-    @Column(name = "Men_nom")
     public String getMenNom() {
         return menNom;
     }
@@ -33,8 +45,6 @@ public class FsMenu {
         this.menNom = menNom;
     }
 
-    @Basic
-    @Column(name = "Men_type")
     public String getMenType() {
         return menType;
     }
@@ -43,8 +53,6 @@ public class FsMenu {
         this.menType = menType;
     }
 
-    @Basic
-    @Column(name = "Men_prix")
     public String getMenPrix() {
         return menPrix;
     }
@@ -66,7 +74,6 @@ public class FsMenu {
         return Objects.hash(menId, menNom, menType, menPrix);
     }
 
-    @OneToMany(mappedBy = "fsMenuByPmIdMenu")
     public Collection<FsPlatMenu> getFsPlatMenusByMenId() {
         return fsPlatMenusByMenId;
     }

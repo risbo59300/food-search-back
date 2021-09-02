@@ -1,31 +1,45 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Panier", schema = "public", catalog = "FoodSearch")
-public class FsPanier {
-
-    private int panId;
-    private String panTitre;
-    private int panPrix;
-    private int panQuantite;
-    private int panIdRestaurant;
-    private FsUtilisateur fsUtilisateurByPanIdUti;
+public class FsPanier implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "Pan_id")
-    public int getPanId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "PANIER_SEQ")
+    @SequenceGenerator(name = "PANIER_SEQ", sequenceName = "PANIER_SEQ", allocationSize = 1)
+    @Column(name = "Pan_id", unique = true, nullable = false)
+    private Long panId;
+
+    @Column(name = "Pan_titre")
+    private String panTitre;
+
+    @Column(name = "Pan_prix")
+    private int panPrix;
+
+    @Column(name = "Pan_quantite")
+    private int panQuantite;
+
+    @Column(name = "Pan_idRestaurant")
+    private int panIdRestaurant;
+
+    @ManyToOne
+    @JoinColumn(name = "pan_id_uti", referencedColumnName = "Uti_id", nullable = false)
+    private FsUtilisateur fsUtilisateurByPanIdUti;
+
+
+    public Long getPanId() {
         return panId;
     }
 
-    public void setPanId(int panId) {
+    public void setPanId(Long panId) {
         this.panId = panId;
     }
 
-    @Basic
-    @Column(name = "Pan_titre")
     public String getPanTitre() {
         return panTitre;
     }
@@ -34,8 +48,6 @@ public class FsPanier {
         this.panTitre = panTitre;
     }
 
-    @Basic
-    @Column(name = "Pan_prix")
     public int getPanPrix() {
         return panPrix;
     }
@@ -44,8 +56,6 @@ public class FsPanier {
         this.panPrix = panPrix;
     }
 
-    @Basic
-    @Column(name = "Pan_quantite")
     public int getPanQuantite() {
         return panQuantite;
     }
@@ -54,8 +64,6 @@ public class FsPanier {
         this.panQuantite = panQuantite;
     }
 
-    @Basic
-    @Column(name = "Pan_idRestaurant")
     public int getPanIdRestaurant() {
         return panIdRestaurant;
     }
@@ -77,8 +85,7 @@ public class FsPanier {
         return Objects.hash(panId, panTitre, panPrix, panQuantite, panIdRestaurant);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "pan_id_uti", referencedColumnName = "Uti_id", nullable = false)
+
     public FsUtilisateur getFsUtilisateurByPanIdUti() {
         return fsUtilisateurByPanIdUti;
     }

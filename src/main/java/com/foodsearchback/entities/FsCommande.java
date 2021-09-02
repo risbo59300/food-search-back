@@ -1,32 +1,52 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Commande", schema = "public", catalog = "FoodSearch")
-public class FsCommande {
-    private int cmdId;
-    private String cmdTitrePr;
-    private int cmdPrixPr;
-    private int cmdQuantitePr;
-    private String cmdStatus;
-    private int cmdIdUti;
-    private FsRestaurant fsRestaurantByCmdIdRes;
-    private FsEvaluation fsEvaluationByCmdIdEva;
+public class FsCommande implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "CMD_id")
-    public int getCmdId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "COMMANDE_SEQ")
+    @SequenceGenerator(name = "COMMANDE_SEQ", sequenceName = "COMMANDE_SEQ", allocationSize = 1)
+    @Column(name = "CMD_id", unique = true, nullable = false)
+    private Long cmdId;
+
+    @Column(name = "CMD_titrePR")
+    private String cmdTitrePr;
+
+    @Column(name = "CMD_prixPR")
+    private int cmdPrixPr;
+
+    @Column(name = "CMD_quantitePR")
+    private int cmdQuantitePr;
+
+    @Column(name = "CMD_status")
+    private String cmdStatus;
+
+    @Column(name = "cmd_id_uti")
+    private int cmdIdUti;
+
+    @ManyToOne
+    @JoinColumn(name = "cmd_id_res", referencedColumnName = "Rest_id", nullable = false)
+    private FsRestaurant fsRestaurantByCmdIdRes;
+
+    @ManyToOne
+    @JoinColumn(name = "cmd_id_eva", referencedColumnName = "Eva_id", nullable = false)
+    private FsEvaluation fsEvaluationByCmdIdEva;
+
+
+    public Long getCmdId() {
         return cmdId;
     }
 
-    public void setCmdId(int cmdId) {
+    public void setCmdId(Long cmdId) {
         this.cmdId = cmdId;
     }
 
-    @Basic
-    @Column(name = "CMD_titrePR")
     public String getCmdTitrePr() {
         return cmdTitrePr;
     }
@@ -35,8 +55,6 @@ public class FsCommande {
         this.cmdTitrePr = cmdTitrePr;
     }
 
-    @Basic
-    @Column(name = "CMD_prixPR")
     public int getCmdPrixPr() {
         return cmdPrixPr;
     }
@@ -45,8 +63,6 @@ public class FsCommande {
         this.cmdPrixPr = cmdPrixPr;
     }
 
-    @Basic
-    @Column(name = "CMD_quantitePR")
     public int getCmdQuantitePr() {
         return cmdQuantitePr;
     }
@@ -55,8 +71,6 @@ public class FsCommande {
         this.cmdQuantitePr = cmdQuantitePr;
     }
 
-    @Basic
-    @Column(name = "CMD_status")
     public String getCmdStatus() {
         return cmdStatus;
     }
@@ -65,8 +79,6 @@ public class FsCommande {
         this.cmdStatus = cmdStatus;
     }
 
-    @Basic
-    @Column(name = "cmd_id_uti")
     public int getCmdIdUti() {
         return cmdIdUti;
     }
@@ -88,8 +100,7 @@ public class FsCommande {
         return Objects.hash(cmdId, cmdTitrePr, cmdPrixPr, cmdQuantitePr, cmdStatus, cmdIdUti);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "cmd_id_res", referencedColumnName = "Rest_id", nullable = false)
+
     public FsRestaurant getFsRestaurantByCmdIdRes() {
         return fsRestaurantByCmdIdRes;
     }
@@ -98,8 +109,7 @@ public class FsCommande {
         this.fsRestaurantByCmdIdRes = fsRestaurantByCmdIdRes;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "cmd_id_eva", referencedColumnName = "Eva_id", nullable = false)
+
     public FsEvaluation getFsEvaluationByCmdIdEva() {
         return fsEvaluationByCmdIdEva;
     }

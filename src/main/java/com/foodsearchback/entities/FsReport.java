@@ -1,27 +1,36 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_report", schema = "public", catalog = "FoodSearch")
-public class FsReport {
-    private int repId;
-    private int repNombre;
-    private FsUtilisateur fsUtilisateurByRepIdUti;
+public class FsReport implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "Rep_id")
-    public int getRepId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "REPORT_SEQ")
+    @SequenceGenerator(name = "REPORT_SEQ", sequenceName = "REPORT_SEQ", allocationSize = 1)
+    @Column(name = "Rep_id", unique = true, nullable = false)
+    private Long repId;
+
+    @Column(name = "Rep_nombre")
+    private int repNombre;
+
+    @ManyToOne
+    @JoinColumn(name = "Rep_id_Uti", referencedColumnName = "Uti_id", nullable = false)
+    private FsUtilisateur fsUtilisateurByRepIdUti;
+
+
+    public Long getRepId() {
         return repId;
     }
 
-    public void setRepId(int repId) {
+    public void setRepId(Long repId) {
         this.repId = repId;
     }
 
-    @Basic
-    @Column(name = "Rep_nombre")
     public int getRepNombre() {
         return repNombre;
     }
@@ -43,8 +52,7 @@ public class FsReport {
         return Objects.hash(repId, repNombre);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "Rep_id_Uti", referencedColumnName = "Uti_id", nullable = false)
+
     public FsUtilisateur getFsUtilisateurByRepIdUti() {
         return fsUtilisateurByRepIdUti;
     }

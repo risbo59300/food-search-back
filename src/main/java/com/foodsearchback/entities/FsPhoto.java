@@ -1,27 +1,36 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Photo", schema = "public", catalog = "FoodSearch")
-public class FsPhoto {
-    private int phoId;
-    private String phoChemin;
-    private FsPlatsRestaurant fsPlatsRestaurantByPhoIdPlatRes;
+public class FsPhoto implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "Pho_id")
-    public int getPhoId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "PHOTO_SEQ")
+    @SequenceGenerator(name = "PHOTO_SEQ", sequenceName = "PHOTO_SEQ", allocationSize = 1)
+    @Column(name = "Pho_id", unique = true, nullable = false)
+    private Long phoId;
+
+    @Column(name = "Pho_chemin")
+    private String phoChemin;
+
+    @ManyToOne
+    @JoinColumn(name = "pho_id_plat_res", referencedColumnName = "Pr_id", nullable = false)
+    private FsPlatsRestaurant fsPlatsRestaurantByPhoIdPlatRes;
+
+
+    public Long getPhoId() {
         return phoId;
     }
 
-    public void setPhoId(int phoId) {
+    public void setPhoId(Long phoId) {
         this.phoId = phoId;
     }
 
-    @Basic
-    @Column(name = "Pho_chemin")
     public String getPhoChemin() {
         return phoChemin;
     }
@@ -43,8 +52,7 @@ public class FsPhoto {
         return Objects.hash(phoId, phoChemin);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "pho_id_plat_res", referencedColumnName = "Pr_id", nullable = false)
+
     public FsPlatsRestaurant getFsPlatsRestaurantByPhoIdPlatRes() {
         return fsPlatsRestaurantByPhoIdPlatRes;
     }

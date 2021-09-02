@@ -1,28 +1,36 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Categ_Plats", schema = "public", catalog = "FoodSearch")
-public class FsCategPlats {
-    private int cpId;
-    private String cpType;
-    private Collection<FsPlatsRestaurant> fsPlatsRestaurantsByCpId;
+public class FsCategPlats implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "CP_id")
-    public int getCpId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "CP_SEQ")
+    @SequenceGenerator(name = "CP_SEQ", sequenceName = "CP_SEQ", allocationSize = 1)
+    @Column(name = "CP_id", unique = true, nullable = false)
+    private Long cpId;
+
+    @Column(name = "CP_type")
+    private String cpType;
+
+    @OneToMany(mappedBy = "fsCategPlatsByPrIdCat")
+    private Collection<FsPlatsRestaurant> fsPlatsRestaurantsByCpId;
+
+
+    public Long getCpId() {
         return cpId;
     }
 
-    public void setCpId(int cpId) {
+    public void setCpId(Long cpId) {
         this.cpId = cpId;
     }
 
-    @Basic
-    @Column(name = "CP_type")
     public String getCpType() {
         return cpType;
     }
@@ -44,7 +52,6 @@ public class FsCategPlats {
         return Objects.hash(cpId, cpType);
     }
 
-    @OneToMany(mappedBy = "fsCategPlatsByPrIdCat")
     public Collection<FsPlatsRestaurant> getFsPlatsRestaurantsByCpId() {
         return fsPlatsRestaurantsByCpId;
     }

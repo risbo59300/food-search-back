@@ -1,22 +1,34 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Plat_Menu", schema = "public", catalog = "FoodSearch")
-public class FsPlatMenu {
-    private int pmId;
-    private FsPlatsRestaurant fsPlatsRestaurantByPmIdPlat;
-    private FsMenu fsMenuByPmIdMenu;
+public class FsPlatMenu implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "PM_id")
-    public int getPmId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "PLATMENU_SEQ")
+    @SequenceGenerator(name = "PLATMENU_SEQ", sequenceName = "PLATMENU_SEQ", allocationSize = 1)
+    @Column(name = "PM_id", unique = true, nullable = false)
+    private Long pmId;
+
+    @ManyToOne
+    @JoinColumn(name = "pm_id_plat", referencedColumnName = "PR_id", nullable = false)
+    private FsPlatsRestaurant fsPlatsRestaurantByPmIdPlat;
+
+    @ManyToOne
+    @JoinColumn(name = "pm_id_menu", referencedColumnName = "Men_id", nullable = false)
+    private FsMenu fsMenuByPmIdMenu;
+
+
+    public Long getPmId() {
         return pmId;
     }
 
-    public void setPmId(int pmId) {
+    public void setPmId(Long pmId) {
         this.pmId = pmId;
     }
 
@@ -33,8 +45,7 @@ public class FsPlatMenu {
         return Objects.hash(pmId);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "pm_id_plat", referencedColumnName = "PR_id", nullable = false)
+
     public FsPlatsRestaurant getFsPlatsRestaurantByPmIdPlat() {
         return fsPlatsRestaurantByPmIdPlat;
     }
@@ -43,8 +54,7 @@ public class FsPlatMenu {
         this.fsPlatsRestaurantByPmIdPlat = fsPlatsRestaurantByPmIdPlat;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "pm_id_menu", referencedColumnName = "Men_id", nullable = false)
+
     public FsMenu getFsMenuByPmIdMenu() {
         return fsMenuByPmIdMenu;
     }

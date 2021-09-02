@@ -1,33 +1,45 @@
 package com.foodsearchback.entities;
 
+import com.foodsearchback.entities.enumeration.ERole;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Role", schema = "public", catalog = "FoodSearch")
-public class FsRole {
-    private int rolId;
-    private String rolType;
-    private Collection<FsUtilisateur> fsUtilisateursByRolId;
+public class FsRole implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "Rol_id")
-    public int getRolId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "ROLE_SEQ")
+    @SequenceGenerator(name = "ROLE_SEQ", sequenceName = "ROLE_SEQ", allocationSize = 1)
+    @Column(name = "Rol_id", unique = true, nullable = false)
+    private Long rolId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Rol_type", nullable=false)
+    private ERole rolType;
+
+    @OneToMany(mappedBy = "fsRoleByUtiIdRol", fetch=FetchType.LAZY)
+    private Collection<FsUtilisateur> fsUtilisateursByRolId;
+
+
+    public Long getRolId() {
         return rolId;
     }
 
-    public void setRolId(int rolId) {
+    public void setRolId(Long rolId) {
         this.rolId = rolId;
     }
 
-    @Basic
-    @Column(name = "Rol_type")
-    public String getRolType() {
+
+    public ERole getRolType() {
         return rolType;
     }
 
-    public void setRolType(String rolType) {
+    public void setRolType(ERole rolType) {
         this.rolType = rolType;
     }
 
@@ -44,7 +56,7 @@ public class FsRole {
         return Objects.hash(rolId, rolType);
     }
 
-    @OneToMany(mappedBy = "fsRoleByUtiIdRol")
+
     public Collection<FsUtilisateur> getFsUtilisateursByRolId() {
         return fsUtilisateursByRolId;
     }

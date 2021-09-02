@@ -1,32 +1,41 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Fidelite", schema = "public", catalog = "FoodSearch")
-public class FsFidelite {
-    private int fidId;
-    private int fidPtsFid;
-    private FsUtilisateur fsUtilisateurByFidIdUtil;
+public class FsFidelite implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "Fid_id")
-    public int getFidId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "FIDELITE_SEQ")
+    @SequenceGenerator(name = "FIDELITE_SEQ", sequenceName = "FIDELITE_SEQ", allocationSize = 1)
+    @Column(name = "Fid_id", unique = true, nullable = false)
+    private Long fidId;
+
+    @Column(name = "Fid_pts_fid")
+    private Long fidPtsFid;
+
+    @ManyToOne
+    @JoinColumn(name = "fid_id_uti", referencedColumnName = "Uti_id", nullable = false)
+    private FsUtilisateur fsUtilisateurByFidIdUtil;
+
+
+    public Long getFidId() {
         return fidId;
     }
 
-    public void setFidId(int fidId) {
+    public void setFidId(Long fidId) {
         this.fidId = fidId;
     }
 
-    @Basic
-    @Column(name = "Fid_pts_fid")
-    public int getFidPtsFid() {
+    public Long getFidPtsFid() {
         return fidPtsFid;
     }
 
-    public void setFidPtsFid(int fidPtsFid) {
+    public void setFidPtsFid(Long fidPtsFid) {
         this.fidPtsFid = fidPtsFid;
     }
 
@@ -43,8 +52,7 @@ public class FsFidelite {
         return Objects.hash(fidId, fidPtsFid);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fid_id_uti", referencedColumnName = "Uti_id", nullable = false)
+
     public FsUtilisateur getFsUtilisateurByFidIdUtil() {
         return fsUtilisateurByFidIdUtil;
     }

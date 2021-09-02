@@ -1,35 +1,54 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Adresse", schema = "public", catalog = "FoodSearch")
-public class FsAdresse {
-    private int adrId;
-    private int adrNumero;
-    private String adrRue;
-    private String adrCplAdr;
-    private int adrCp;
-    private String adrVille;
-    private String adrPays;
-    //private FsUtilisateur fsUtilisateurByAdrId;
-    private Collection<FsUtilisateur> fsUtilisateurByAdrId;
-    private FsRestaurant fsRestaurantByAdrId;
+public class FsAdresse implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "Adr_id")
-    public int getAdrId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "ADRESSE_SEQ")
+    @SequenceGenerator(name = "ADRESSE_SEQ", sequenceName = "ADRESSE_SEQ", allocationSize = 1)
+    @Column(name = "Adr_id", unique = true, nullable = false)
+    private Long adrId;
+
+    @Column(name = "Adr_numero")
+    private int adrNumero;
+
+    @Column(name = "Adr_rue")
+    private String adrRue;
+
+    @Column(name = "Adr_cplAdr")
+    private String adrCplAdr;
+
+    @Column(name = "Adr_cp")
+    private int adrCp;
+
+    @Column(name = "Adr_ville")
+    private String adrVille;
+
+    @Column(name = "Adr_pays")
+    private String adrPays;
+
+    @OneToMany(mappedBy = "fsAdresseByUtiId", fetch=FetchType.LAZY)
+    private Collection<FsUtilisateur> fsUtilisateurByAdrId;
+
+    @OneToOne(mappedBy = "fsAdresseByRestId")
+    private FsRestaurant fsRestaurantByAdrId;
+
+
+    public Long getAdrId() {
         return adrId;
     }
 
-    public void setAdrId(int adrId) {
+    public void setAdrId(Long adrId) {
         this.adrId = adrId;
     }
 
-    @Basic
-    @Column(name = "Adr_numero")
     public int getAdrNumero() {
         return adrNumero;
     }
@@ -38,8 +57,6 @@ public class FsAdresse {
         this.adrNumero = adrNumero;
     }
 
-    @Basic
-    @Column(name = "Adr_rue")
     public String getAdrRue() {
         return adrRue;
     }
@@ -48,8 +65,6 @@ public class FsAdresse {
         this.adrRue = adrRue;
     }
 
-    @Basic
-    @Column(name = "Adr_cplAdr")
     public String getAdrCplAdr() {
         return adrCplAdr;
     }
@@ -58,8 +73,6 @@ public class FsAdresse {
         this.adrCplAdr = adrCplAdr;
     }
 
-    @Basic
-    @Column(name = "Adr_cp")
     public int getAdrCp() {
         return adrCp;
     }
@@ -68,8 +81,6 @@ public class FsAdresse {
         this.adrCp = adrCp;
     }
 
-    @Basic
-    @Column(name = "Adr_ville")
     public String getAdrVille() {
         return adrVille;
     }
@@ -78,8 +89,6 @@ public class FsAdresse {
         this.adrVille = adrVille;
     }
 
-    @Basic
-    @Column(name = "Adr_pays")
     public String getAdrPays() {
         return adrPays;
     }
@@ -101,20 +110,7 @@ public class FsAdresse {
         return Objects.hash(adrId, adrNumero, adrRue, adrCplAdr, adrCp, adrVille, adrPays);
     }
 
-    /*
-    @ManyToOne
-    @JoinColumn(name = "Adr_id_uti", referencedColumnName = "Uti_id")
-    public FsUtilisateur getFsUtilisateurByAdrIdUti() {
-        return fsUtilisateurByAdrIdUti;
-    }
 
-    public void setFsUtilisateurByAdrIdUti(FsUtilisateur fsUtilisateurByAdrIdUti) {
-        this.fsUtilisateurByAdrIdUti = fsUtilisateurByAdrIdUti;
-    }
-
-
-     */
-    @OneToMany(mappedBy = "fsAdresseByUtiIdAdr")
     public Collection<FsUtilisateur> getFsUtilisateurByAdrId() {
         return fsUtilisateurByAdrId;
     }
@@ -123,7 +119,6 @@ public class FsAdresse {
         this.fsUtilisateurByAdrId = fsUtilisateurByAdrId;
     }
 
-    @OneToOne(mappedBy = "fsAdresseByRestId")
     public FsRestaurant getFsRestaurantByAdrId() {
         return fsRestaurantByAdrId;
     }

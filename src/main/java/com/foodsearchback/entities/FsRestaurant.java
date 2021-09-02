@@ -1,33 +1,54 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Restaurant", schema = "public", catalog = "FoodSearch")
-public class FsRestaurant {
-    private int restId;
-    private String restNom;
-    private String restTel;
-    private Collection<FsCommande> fsCommandesByRestId;
-    private Collection<FsPlatsRestaurant> fsPlatsRestaurantsByRestId;
-    private FsAdresse fsAdresseByRestId;
-    private FsUtilisateur fsUtilisateurByRestIdUti;
-    private FsSpecialite fsSpecialiteByRestIdSpe;
+public class FsRestaurant implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "Rest_id")
-    public int getRestId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "RESTO_SEQ")
+    @SequenceGenerator(name = "RESTO_SEQ", sequenceName = "RESTO_SEQ", allocationSize = 1)
+    @Column(name = "Rest_id", unique = true, nullable = false)
+    private Long restId;
+
+    @Column(name = "Rest_nom")
+    private String restNom;
+
+    @Column(name = "Rest_tel")
+    private String restTel;
+
+    @OneToMany(mappedBy = "fsRestaurantByCmdIdRes")
+    private Collection<FsCommande> fsCommandesByRestId;
+
+    @OneToMany(mappedBy = "fsRestaurantByPrIdRes")
+    private Collection<FsPlatsRestaurant> fsPlatsRestaurantsByRestId;
+
+    @OneToOne
+    @JoinColumn(name = "Rest_id", referencedColumnName = "Adr_id", nullable = false)
+    private FsAdresse fsAdresseByRestId;
+
+    @ManyToOne
+    @JoinColumn(name = "Rest_id_Uti", referencedColumnName = "Uti_id", nullable = false)
+    private FsUtilisateur fsUtilisateurByRestIdUti;
+
+    @ManyToOne
+    @JoinColumn(name = "Rest_id_Spe", referencedColumnName = "Spe_id", nullable = false)
+    private FsSpecialite fsSpecialiteByRestIdSpe;
+
+
+    public Long getRestId() {
         return restId;
     }
 
-    public void setRestId(int restId) {
+    public void setRestId(Long restId) {
         this.restId = restId;
     }
 
-    @Basic
-    @Column(name = "Rest_nom")
     public String getRestNom() {
         return restNom;
     }
@@ -36,8 +57,6 @@ public class FsRestaurant {
         this.restNom = restNom;
     }
 
-    @Basic
-    @Column(name = "Rest_tel")
     public String getRestTel() {
         return restTel;
     }
@@ -48,7 +67,6 @@ public class FsRestaurant {
 
 
 
-    @OneToMany(mappedBy = "fsRestaurantByCmdIdRes")
     public Collection<FsCommande> getFsCommandesByRestId() {
         return fsCommandesByRestId;
     }
@@ -57,7 +75,6 @@ public class FsRestaurant {
         this.fsCommandesByRestId = fsCommandesByRestId;
     }
 
-    @OneToMany(mappedBy = "fsRestaurantByPrIdRes")
     public Collection<FsPlatsRestaurant> getFsPlatsRestaurantsByRestId() {
         return fsPlatsRestaurantsByRestId;
     }
@@ -66,8 +83,7 @@ public class FsRestaurant {
         this.fsPlatsRestaurantsByRestId = fsPlatsRestaurantsByRestId;
     }
 
-    @OneToOne
-    @JoinColumn(name = "Rest_id", referencedColumnName = "Adr_id", nullable = false)
+
     public FsAdresse getFsAdresseByRestId() {
         return fsAdresseByRestId;
     }
@@ -76,8 +92,7 @@ public class FsRestaurant {
         this.fsAdresseByRestId = fsAdresseByRestId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "Rest_id_Uti", referencedColumnName = "Uti_id", nullable = false)
+
     public FsUtilisateur getFsUtilisateurByRestIdUti() {
         return fsUtilisateurByRestIdUti;
     }
@@ -86,8 +101,7 @@ public class FsRestaurant {
         this.fsUtilisateurByRestIdUti = fsUtilisateurByRestIdUti;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "Rest_id_Spe", referencedColumnName = "Spe_id", nullable = false)
+
     public FsSpecialite getFsSpecialiteByRestIdSpe() {
         return fsSpecialiteByRestIdSpe;
     }

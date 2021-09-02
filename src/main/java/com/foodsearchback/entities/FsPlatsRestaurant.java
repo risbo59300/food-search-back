@@ -1,34 +1,56 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Plats_Restaurant", schema = "public", catalog = "FoodSearch")
-public class FsPlatsRestaurant {
-    private int prId;
-    private String prTitre;
-    private int prPrix;
-    private String prDescription;
-    private String prPhoto;
-    private Collection<FsPhoto> fsPhotosByPrId;
-    private Collection<FsPlatMenu> fsPlatMenusByPrId;
-    private FsCategPlats fsCategPlatsByPrIdCat;
-    private FsRestaurant fsRestaurantByPrIdRes;
+public class FsPlatsRestaurant implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "PR_id")
-    public int getPrId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "PLATRESTO_SEQ")
+    @SequenceGenerator(name = "PLATRESTO_SEQ", sequenceName = "PLATRESTO_SEQ", allocationSize = 1)
+    @Column(name = "PR_id", unique = true, nullable = false)
+    private Long prId;
+
+    @Column(name = "PR_titre")
+    private String prTitre;
+
+    @Column(name = "PR_prix")
+    private int prPrix;
+
+    @Column(name = "PR_description")
+    private String prDescription;
+
+    @Column(name = "PR_photo")
+    private String prPhoto;
+
+    @OneToMany(mappedBy = "fsPlatsRestaurantByPhoIdPlatRes")
+    private Collection<FsPhoto> fsPhotosByPrId;
+
+    @OneToMany(mappedBy = "fsPlatsRestaurantByPmIdPlat")
+    private Collection<FsPlatMenu> fsPlatMenusByPrId;
+
+    @ManyToOne
+    @JoinColumn(name = "pr_id_cat", referencedColumnName = "CP_id", nullable = false)
+    private FsCategPlats fsCategPlatsByPrIdCat;
+
+    @ManyToOne
+    @JoinColumn(name = "pr_id_res", referencedColumnName = "Rest_id", nullable = false)
+    private FsRestaurant fsRestaurantByPrIdRes;
+
+
+    public Long getPrId() {
         return prId;
     }
 
-    public void setPrId(int prId) {
+    public void setPrId(Long prId) {
         this.prId = prId;
     }
 
-    @Basic
-    @Column(name = "PR_titre")
     public String getPrTitre() {
         return prTitre;
     }
@@ -37,8 +59,6 @@ public class FsPlatsRestaurant {
         this.prTitre = prTitre;
     }
 
-    @Basic
-    @Column(name = "PR_prix")
     public int getPrPrix() {
         return prPrix;
     }
@@ -47,8 +67,6 @@ public class FsPlatsRestaurant {
         this.prPrix = prPrix;
     }
 
-    @Basic
-    @Column(name = "PR_description")
     public String getPrDescription() {
         return prDescription;
     }
@@ -57,8 +75,6 @@ public class FsPlatsRestaurant {
         this.prDescription = prDescription;
     }
 
-    @Basic
-    @Column(name = "PR_photo")
     public String getPrPhoto() {
         return prPhoto;
     }
@@ -80,7 +96,6 @@ public class FsPlatsRestaurant {
         return Objects.hash(prId, prTitre, prPrix, prDescription, prPhoto);
     }
 
-    @OneToMany(mappedBy = "fsPlatsRestaurantByPhoIdPlatRes")
     public Collection<FsPhoto> getFsPhotosByPrId() {
         return fsPhotosByPrId;
     }
@@ -89,7 +104,6 @@ public class FsPlatsRestaurant {
         this.fsPhotosByPrId = fsPhotosByPrId;
     }
 
-    @OneToMany(mappedBy = "fsPlatsRestaurantByPmIdPlat")
     public Collection<FsPlatMenu> getFsPlatMenusByPrId() {
         return fsPlatMenusByPrId;
     }
@@ -98,8 +112,7 @@ public class FsPlatsRestaurant {
         this.fsPlatMenusByPrId = fsPlatMenusByPrId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "pr_id_cat", referencedColumnName = "CP_id", nullable = false)
+
     public FsCategPlats getFsCategPlatsByPrIdCat() {
         return fsCategPlatsByPrIdCat;
     }
@@ -108,8 +121,7 @@ public class FsPlatsRestaurant {
         this.fsCategPlatsByPrIdCat = fsCategPlatsByPrIdCat;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "pr_id_res", referencedColumnName = "Rest_id", nullable = false)
+
     public FsRestaurant getFsRestaurantByPrIdRes() {
         return fsRestaurantByPrIdRes;
     }

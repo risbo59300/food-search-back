@@ -1,39 +1,47 @@
 package com.foodsearchback.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "FS_Evaluation", schema = "public", catalog = "FoodSearch")
-public class FsEvaluation {
-    private int evaId;
-    private Integer evaNote;
-    private String evaCommentaire;
-    private Collection<FsCommande> fsCommandesByEvaId;
+public class FsEvaluation implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "Eva_id")
-    public int getEvaId() {
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "EVALUATION_SEQ")
+    @SequenceGenerator(name = "EVALUATION_SEQ", sequenceName = "EVALUATION_SEQ", allocationSize = 1)
+    @Column(name = "Eva_id", unique = true, nullable = false)
+    private Long evaId;
+
+    @Column(name = "Eva_note", nullable=false)
+    private int evaNote;
+
+    @Column(name = "Eva_commentaire")
+    private String evaCommentaire;
+
+    @OneToMany(mappedBy = "fsEvaluationByCmdIdEva")
+    private Collection<FsCommande> fsCommandesByEvaId;
+
+
+    public Long getEvaId() {
         return evaId;
     }
 
-    public void setEvaId(int evaId) {
+    public void setEvaId(Long evaId) {
         this.evaId = evaId;
     }
 
-    @Basic
-    @Column(name = "Eva_note")
-    public Integer getEvaNote() {
+    public int getEvaNote() {
         return evaNote;
     }
 
-    public void setEvaNote(Integer evaNote) {
+    public void setEvaNote(int evaNote) {
         this.evaNote = evaNote;
     }
 
-    @Basic
-    @Column(name = "Eva_commentaire")
     public String getEvaCommentaire() {
         return evaCommentaire;
     }
@@ -55,7 +63,6 @@ public class FsEvaluation {
         return Objects.hash(evaId, evaNote, evaCommentaire);
     }
 
-    @OneToMany(mappedBy = "fsEvaluationByCmdIdEva")
     public Collection<FsCommande> getFsCommandesByEvaId() {
         return fsCommandesByEvaId;
     }
