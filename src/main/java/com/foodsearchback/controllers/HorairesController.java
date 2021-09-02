@@ -21,7 +21,7 @@ public class HorairesController {
         return horairesService.findAll();
     }
 
-    @GetMapping("/specialite/{id}")
+    @GetMapping("/horaires/{id}")
     public List<FsHoraires> findById() {
         return horairesService.findAll();
     }
