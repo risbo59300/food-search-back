@@ -22,8 +22,8 @@ public class EvaluationController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsEvaluation> findById() {
-        return evaluationService.findAll();
+    public FsEvaluation findById(@PathVariable long id) {
+        return evaluationService.findById(id);
     }
 
     @PostMapping("/add")
@@ -36,7 +36,7 @@ public class EvaluationController {
         evaluationService.update(evaluation);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         evaluationService.delete(evaluationService.findById(id));
     }

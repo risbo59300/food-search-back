@@ -21,8 +21,8 @@ public class RoleController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsRole> findById() {
-        return roleService.findAll();
+    public FsRole findById(@PathVariable long id) {
+        return roleService.findById(id);
     }
 
     @PostMapping("/add")
@@ -35,7 +35,7 @@ public class RoleController {
         roleService.update(role);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         roleService.delete(roleService.findById(id));
     }

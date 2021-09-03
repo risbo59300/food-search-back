@@ -22,8 +22,8 @@ public class AdresseController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsAdresse> findById() {
-        return adresseService.findAll();
+    public FsAdresse findById(@PathVariable long id) {
+        return adresseService.findById(id);
     }
 
     @PostMapping("/add")
@@ -36,7 +36,7 @@ public class AdresseController {
         adresseService.update(adresse);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         adresseService.delete(adresseService.findById(id));
     }

@@ -21,8 +21,8 @@ public class CategoriePlatController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsCategPlats> findById() {
-        return categoriePlatService.findAll();
+    public FsCategPlats findById(@PathVariable long id) {
+        return categoriePlatService.findById(id);
     }
 
     @PostMapping("/add")
@@ -35,7 +35,7 @@ public class CategoriePlatController {
         categoriePlatService.update(categPlats);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         categoriePlatService.delete(categoriePlatService.findById(id));
     }

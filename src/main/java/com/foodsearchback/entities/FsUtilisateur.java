@@ -38,7 +38,7 @@ public class FsUtilisateur implements Serializable {
     @Column(name = "Uti_DDN")
     private Date utiDdn;
 
-    @Column(name = "Uti_photo")
+    @Column(name = "uti_photo")
     private String utiPhoto;
 
     @ManyToOne

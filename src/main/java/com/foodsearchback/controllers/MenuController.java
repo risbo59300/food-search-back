@@ -22,8 +22,8 @@ public class MenuController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsMenu> findById() {
-        return menuService.findAll();
+    public FsMenu findById(@PathVariable long id) {
+        return menuService.findById(id);
     }
 
     @PostMapping("/add")
@@ -36,7 +36,7 @@ public class MenuController {
         menuService.update(menu);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         menuService.delete(menuService.findById(id));
     }

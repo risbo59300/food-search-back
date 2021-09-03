@@ -21,8 +21,8 @@ public class FideliteController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsFidelite> findById() {
-        return fideliteService.findAll();
+    public FsFidelite findById(@PathVariable long id) {
+        return fideliteService.findById(id);
     }
 
     @PostMapping("/add")
@@ -35,7 +35,7 @@ public class FideliteController {
         fideliteService.update(fidelite);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         fideliteService.delete(fideliteService.findById(id));
     }

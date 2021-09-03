@@ -21,8 +21,8 @@ public class PanierController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsPanier> findById() {
-        return panierService.findAll();
+    public FsPanier findById(@PathVariable long id) {
+        return panierService.findById(id);
     }
 
     @PostMapping("/add")
@@ -35,7 +35,7 @@ public class PanierController {
         panierService.update(panier);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         panierService.delete(panierService.findById(id));
     }

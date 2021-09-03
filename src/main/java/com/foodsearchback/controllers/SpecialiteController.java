@@ -21,8 +21,8 @@ public class SpecialiteController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsSpecialite> findById() {
-        return specialiteService.findAll();
+    public FsSpecialite findById(@PathVariable long id) {
+        return specialiteService.findById(id);
     }
 
     @PostMapping("/add")
@@ -35,7 +35,7 @@ public class SpecialiteController {
         specialiteService.update(specialite);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         specialiteService.delete(specialiteService.findById(id));
     }

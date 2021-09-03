@@ -21,8 +21,8 @@ public class RestaurantController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsRestaurant> findById() {
-        return restaurantService.findAll();
+    public FsRestaurant findById(@PathVariable long id) {
+        return restaurantService.findById(id);
     }
 
     @PostMapping("/add")
@@ -35,7 +35,7 @@ public class RestaurantController {
         restaurantService.update(restaurant);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         restaurantService.delete(restaurantService.findById(id));
     }

@@ -21,8 +21,8 @@ public class MessageController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsMessage> findById() {
-        return messageService.findAll();
+    public FsMessage findById(@PathVariable long id) {
+        return messageService.findById(id);
     }
 
     @PostMapping("/add")
@@ -35,7 +35,7 @@ public class MessageController {
         messageService.update(message);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         messageService.delete(messageService.findById(id));
     }

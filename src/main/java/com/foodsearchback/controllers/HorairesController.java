@@ -22,8 +22,8 @@ public class HorairesController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsHoraires> findById() {
-        return horairesService.findAll();
+    public FsHoraires findById(@PathVariable long id) {
+        return horairesService.findById(id);
     }
 
     @PostMapping("/add")
@@ -36,7 +36,7 @@ public class HorairesController {
         horairesService.update(horaires);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         horairesService.delete(horairesService.findById(id));
     }

@@ -22,8 +22,8 @@ public class ReportController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsReport> findById() {
-        return reportService.findAll();
+    public FsReport findById(@PathVariable long id) {
+        return reportService.findById(id);
     }
 
     @PostMapping("/add")
@@ -36,7 +36,7 @@ public class ReportController {
         reportService.update(report);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         reportService.delete(reportService.findById(id));
     }

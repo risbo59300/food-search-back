@@ -1,5 +1,6 @@
 package com.foodsearchback.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.foodsearchback.entities.enumeration.ERole;
 
 import javax.persistence.*;

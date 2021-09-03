@@ -22,8 +22,8 @@ public class CommandeController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsCommande> findById() {
-        return commandeService.findAll();
+    public FsCommande findById(@PathVariable long id) {
+        return commandeService.findById(id);
     }
 
     @PostMapping("/add")
@@ -36,7 +36,7 @@ public class CommandeController {
         commandeService.update(commande);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         commandeService.delete(commandeService.findById(id));
     }

@@ -21,8 +21,8 @@ public class photoController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsPhoto> findById() {
-        return photoService.findAll();
+    public FsPhoto findById(@PathVariable long id) {
+        return photoService.findById(id);
     }
 
     @PostMapping("/add")
@@ -35,7 +35,7 @@ public class photoController {
         photoService.update(photo);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         photoService.delete(photoService.findById(id));
     }

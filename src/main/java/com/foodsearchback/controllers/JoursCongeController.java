@@ -21,8 +21,8 @@ public class JoursCongeController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsJoursConges> findById() {
-        return joursCongeService.findAll();
+    public FsJoursConges findById(@PathVariable long id) {
+        return joursCongeService.findById(id);
     }
 
     @PostMapping("/add")
@@ -35,7 +35,7 @@ public class JoursCongeController {
         joursCongeService.update(joursConges);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         joursCongeService.delete(joursCongeService.findById(id));
     }

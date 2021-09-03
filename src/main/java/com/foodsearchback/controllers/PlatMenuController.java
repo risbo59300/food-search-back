@@ -22,7 +22,7 @@ public class PlatMenuController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsPlatMenu> findById() { return platMenuService.findAll();
+    public FsPlatMenu findById(@PathVariable long id) { return platMenuService.findById(id);
     }
 
     @PostMapping("/add")
@@ -34,7 +34,7 @@ public class PlatMenuController {
     public void update(@RequestBody FsPlatMenu platMenu) { platMenuService.update(platMenu);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         platMenuService.delete(platMenuService.findById(id));
     }

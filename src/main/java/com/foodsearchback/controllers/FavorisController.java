@@ -22,8 +22,8 @@ public class FavorisController {
     }
 
     @GetMapping("/find/{id}")
-    public List<FsFavoris> findById() {
-        return favorisService.findAll();
+    public FsFavoris findById(@PathVariable long id) {
+        return favorisService.findById(id);
     }
 
     @PostMapping("/add")
@@ -36,7 +36,7 @@ public class FavorisController {
         favorisService.update(favoris);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) { favorisService.delete(favorisService.findById(id));
     }
 }
