@@ -59,7 +59,7 @@ public class FsUtilisateur implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "Uti_id", referencedColumnName = "Pan_id", nullable = false)
-    private FsPanier fsPaniersByUtiId;
+    private FsPanier fsPanierByUtiId;
 
     @OneToMany(mappedBy = "fsUtilisateurByRestIdUti",fetch = FetchType.LAZY)
     private Collection<FsRestaurant> fsRestaurantsByUtiId;
@@ -191,11 +191,11 @@ public class FsUtilisateur implements Serializable {
     }
 
     public FsPanier getFsPaniersByUtiId() {
-        return fsPaniersByUtiId;
+        return fsPanierByUtiId;
     }
 
     public void setFsPaniersByUtiId(FsPanier fsPaniersByUtiId) {
-        this.fsPaniersByUtiId = fsPaniersByUtiId;
+        this.fsPanierByUtiId = fsPaniersByUtiId;
     }
 
     public Collection<FsRestaurant> getFsRestaurantsByUtiId() {
