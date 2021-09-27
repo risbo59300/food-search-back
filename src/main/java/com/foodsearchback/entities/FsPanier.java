@@ -27,11 +27,12 @@ public class FsPanier implements Serializable {
     @Column(name = "Pan_idRestaurant")
     private int panIdRestaurant;
 
-    //@ManyToOne
-    //@JoinColumn(name = "pan_id_uti", referencedColumnName = "Uti_id", nullable = false)
-    //private FsUtilisateur fsUtilisateurByPanIdUti;
-    @OneToOne(mappedBy = "fsPanierByUtiId")
+    @ManyToOne
+    @JoinColumn(name = "pan_id_uti", referencedColumnName = "Uti_id", nullable = false)
     private FsUtilisateur fsUtilisateurByPanIdUti;
+
+    //@OneToOne(mappedBy = "fsPanierByUtiId")
+    //private FsUtilisateur fsUtilisateurByPanIdUti;
 
     public Long getPanId() {
         return panId;
